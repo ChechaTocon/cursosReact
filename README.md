@@ -1,0 +1,1 @@
+Aplicación de backend y front para el parcial de programmación comercial.
