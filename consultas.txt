@@ -1,0 +1,13 @@
+query {
+  allCursos {
+    edges {
+      node {
+        id,
+        nombre,
+        categoria{
+          nombre
+        }
+      }
+    }
+  }
+}
