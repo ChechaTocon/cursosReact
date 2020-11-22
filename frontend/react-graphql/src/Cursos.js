@@ -11,6 +11,7 @@ const Cursos=()=>(
                 node {
                     id,
                     nombre,
+                    descripcion
                     categoria{
                         nombre
                     }
@@ -25,7 +26,8 @@ const Cursos=()=>(
             console.log(data)
             return data.allCursos.edges.map(({node})=>(
                 <div key={node.id}>
-                    <p>{`${node.nombre}`}</p>                    
+                    <h1>{`${node.nombre}`}</h1>                    
+                    <p>{`${node.descripcion}`}</p>       
                     <p>{`${node.categoria.nombre}`}</p>                    
                 </div>
             ));
