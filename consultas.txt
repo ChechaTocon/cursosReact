@@ -11,3 +11,18 @@ query {
     }
   }
 }
+
+para agregar 
+
+mutation{
+  crearCurso(nombre:"Operador de Computadoras" , descripcion:"Horarios de 3 a 4 pm", categoria: 1){
+    curso{
+      id
+      nombre,
+      descripcion,
+      categoria{
+        id        
+      }           
+    }
+  }
+}

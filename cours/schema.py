@@ -1,6 +1,7 @@
 import graphene
 from graphene import relay, ObjectType
 from graphene_django import DjangoObjectType
+from graphene import Argument
 from graphene_django.filter import DjangoFilterConnectionField
 
 from cours.models import Categoria, Curso
@@ -34,3 +35,33 @@ class Query(graphene.ObjectType):
 
     curso = relay.Node.Field(CursoNode)
     all_cursos = DjangoFilterConnectionField(CursoNode)
+
+# Mutaciones 🦁 🐉
+
+class CrearCurso(graphene.Mutation):
+# Definiendo los argumentos que se le van a pasar a crear
+    class Arguments:
+        nombre= graphene.String()
+        descripcion= graphene.String()    
+        categoria = graphene.Int()
+
+# Retorna un curso creado
+    curso = graphene.Field(CursoNode)
+
+#la verdadera mutación
+    def mutate(self, info, nombre, descripcion, categoria):
+        objeto_categoria=Categoria.objects.get(id=categoria)
+        curso = Curso.objects.create(
+            nombre = nombre,
+            descripcion = descripcion,       
+            categoria=objeto_categoria                             
+        )           
+
+        curso.save()
+    # return an instance of the Mutation 🤷‍♀️
+        return CrearCurso(
+            curso=curso
+        )
+
+class Mutation(graphene.ObjectType):
+    crear_curso = CrearCurso.Field()

@@ -10,7 +10,7 @@ class Curso(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
     categoria = models.ForeignKey(
-        Categoria, related_name="cursos", on_delete=models.CASCADE
+        Categoria, related_name="cursos", on_delete=models.CASCADE, blank=True
     )
 
     def __str__(self):

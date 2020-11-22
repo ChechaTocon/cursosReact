@@ -25,10 +25,12 @@ const Cursos=()=>(
             if(error) return <p>Error,{{error}}</p>
             console.log(data)
             return data.allCursos.edges.map(({node})=>(
-                <div key={node.id}>
-                    <h1>{`${node.nombre}`}</h1>                    
-                    <p>{`${node.descripcion}`}</p>       
-                    <p>{`${node.categoria.nombre}`}</p>                    
+                <div className="card" style={{'width':'100%', 'marginTop':'10px'}} key={node.id}>
+                    <div className="card-body">
+                        <h1 className="card-title">{`${node.nombre}`}</h1>                    
+                        <h5 className="card-subtitle mb-2 text-muted"> {`${node.categoria.nombre}`}</h5>       
+                        <p className="card-text">{`${node.descripcion}`}</p>                    
+                    </div>
                 </div>
             ));
         }}

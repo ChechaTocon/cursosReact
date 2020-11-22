@@ -8,4 +8,8 @@ class Query(cours.schema.Query, graphene.ObjectType):
     # segun vayamos agregando aplicaciones a nuestro proyecto
     pass
 
-schema = graphene.Schema(query=Query)
+class Mutation(cours.schema.Mutation, graphene.ObjectType):
+
+    pass
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
