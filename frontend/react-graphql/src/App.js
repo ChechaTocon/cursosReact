@@ -18,6 +18,7 @@ const App=()=>(
     <div>
       <Agregar/>
     </div>
+    <br></br>
     <div>
       <Cursos/>
     </div>
