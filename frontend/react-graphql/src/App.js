@@ -12,13 +12,11 @@ const client= new ApolloClient({
 
 //se crea una nueva instancia del clinete con apollo provider
 const App=()=>(
-  <ApolloProvider client={client}> 
-  <br></br>
+  <ApolloProvider client={client}>   
   <div className="container">
     <div>
       <Agregar/>
-    </div>
-    <br></br>
+    </div>    
     <div>
       <Cursos/>
     </div>

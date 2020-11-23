@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Mutation } from "react-apollo";
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
 const Agregar = () => {
@@ -15,10 +16,9 @@ const Agregar = () => {
 
   return (
     <div className="jumbotron">
-         <h1>
-            Agregar un nuevo curso{" "}</h1>
+      <h1>Agregar un nuevo curso </h1>
       <div className="row">
-        <div className="col col-lg-3">
+        <div className="col col-lg-4">
           <label for="nombre">Nombre del curso</label>
           <input
             value={nombre}
@@ -30,7 +30,7 @@ const Agregar = () => {
         </div>
       </div>
       <div className="row">
-        <div className="col col-lg-3">
+        <div className="col col-lg-4">
           <label for="descripcion">Descripción del curso</label>
           <input
             class="form-control"
@@ -41,17 +41,45 @@ const Agregar = () => {
           />
         </div>
       </div>
-      <div className="row">
-      <div className="col col-lg-3">
-        <label for="categoria">Categoria del curso</label>
-        <input
-          id="categoria"
-          class="form-control"
-          value={categoria}
-          onChange={(t) => setCategoria(t.target.value)}
-          placeholder="Ingrese la categoría del curso"
-        />
-      </div>
+      <div className="row">        
+        <Query
+          query={gql`
+            {
+              allCategorias {
+                edges {
+                  node {
+                    id
+                    nombre
+                  }
+                }
+              }
+            }
+          `}
+        >
+          {({ loading, error, data }) => {
+            if (loading) return <p>Cargando...</p>;
+            if (error) return <p>Error,{{ error }}</p>;
+            console.log(data);
+
+            return (                     
+                <div className="col col-lg-5">                
+                  <label>
+                      Seleccione una categoria:
+                      <select
+                        className="custom-select custom-select-lg mb-3"
+                        value={categoria}
+                        onClick={(t) => setCategoria(t.target.value)}
+                      >
+                        <option value={0}>Seleccione una categoria</option>                                          
+                  {data.allCategorias.edges.map(({ node }, index) => (                                        
+                        <option value={`${index+1}`}>{`${node.nombre}`}</option>                                          
+                  ))}
+                  </select>
+                  </label>
+                </div>              
+            );
+          }}
+        </Query>
       </div>
       <Mutation
         mutation={gql`
@@ -82,16 +110,16 @@ const Agregar = () => {
         }}
       >
         {(postMutation) => (
-          <div>     
-            <br></br>  
+          <div>
+            <br></br>
             <button
               type="button"
               className="btn btn-primary"
               onClick={postMutation}
-            >Agregar 
-              +
-            </button>          
-            </div>
+            >
+              Agregar +
+            </button>
+          </div>
         )}
       </Mutation>
     </div>
