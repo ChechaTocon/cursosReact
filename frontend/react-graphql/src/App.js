@@ -4,6 +4,7 @@ import './App.css';
 import ApolloClient from 'apollo-boost'
 import {ApolloProvider} from 'react-apollo'
 import Cursos from './Cursos';
+import Agregar from './AgregarCurso';
 
 const client= new ApolloClient({
   uri:'http://127.0.0.1:8000/graphql'
@@ -12,9 +13,10 @@ const client= new ApolloClient({
 //se crea una nueva instancia del clinete con apollo provider
 const App=()=>(
   <ApolloProvider client={client}> 
+  <br></br>
   <div className="container">
     <div>
-      <h1>Agregar un nuevo curso <button type="button" className="btn btn-primary">+</button>  </h1>
+      <Agregar/>
     </div>
     <div>
       <Cursos/>
